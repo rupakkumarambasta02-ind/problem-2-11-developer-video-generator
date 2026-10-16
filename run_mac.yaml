@@ -1,0 +1,19 @@
+# Commands run EXACTLY as written, in order, from a fresh checkout on macOS. Non-interactive.
+
+setup_commands:
+  - "python3 -c \"import sys; assert sys.version_info >= (3, 12), 'Python 3.12+ required'\""
+  - "python3 -m venv .venv"
+  - ".venv/bin/python -m pip install --upgrade pip -q"
+  - ".venv/bin/python -m pip install -e '.[dev]' -q"
+  - ".venv/bin/python -m playwright install chromium"
+  - ".venv/bin/codecast fetch-voice"
+  - ".venv/bin/codecast doctor"
+
+run_commands:
+  - ".venv/bin/codecast run --repo https://github.com/rkumar-bengaluru/video-classifier --out output/ --config config/openai.yaml"
+  - "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 output/video-classifier/explainer.mp4"
+
+test_commands:
+  - ".venv/bin/python -m pytest -q"
+
+notes: "macOS. Requires ffmpeg >= 7 (brew install ffmpeg) and OPENAI_API_KEY (config/openai.yaml selects gpt-5.4-mini, the model the committed demo was made with; drop --config to use the built-in default, Anthropic, with ANTHROPIC_API_KEY). TTS is local: piper when available (voice downloaded once by fetch-voice into ~/.cache/codecast), otherwise macOS say. Takes about 3-5 minutes per video. The default test suite is offline and needs no API key (it uses ffmpeg, headless Chromium and say). The committed example output is in output/video-classifier/ (explainer.mp4, explainer.srt, storyboard.json, run_report.json); a successful run replaces those four files together."

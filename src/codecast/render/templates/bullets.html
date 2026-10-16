@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="stage">
+  <div class="kicker">{{ kicker }}</div><div class="counter">{{ scene_number }} / {{ scene_count }}</div>
+  <h2>{{ heading }}</h2>
+  <ul class="bullets">{% for item in items %}<li>{{ item }}</li>{% endfor %}</ul>
+</div>
+{% endblock %}

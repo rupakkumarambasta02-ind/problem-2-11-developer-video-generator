@@ -1,0 +1,71 @@
+1
+00:00:00,000 --> 00:00:02,566
+Aider brings AI pair programming into your terminal.
+
+2
+00:00:02,716 --> 00:00:06,187
+It helps you start new work or extend an existing codebase.
+
+3
+00:00:06,700 --> 00:00:10,020
+Aider maps your codebase so it can work in larger projects.
+
+4
+00:00:10,170 --> 00:00:16,347
+It connects to cloud and local LLMs, and it accepts images, web pages, and voice.
+
+5
+00:00:16,867 --> 00:00:21,406
+The workflow stays grounded in git, with automatic commits and sensible messages.
+
+6
+00:00:21,556 --> 00:00:25,213
+That makes it easy to diff, manage, and undo AI changes.
+
+7
+00:00:25,733 --> 00:00:30,465
+Getting started is a short shell session: install aider-install, change into your
+
+8
+00:00:30,465 --> 00:00:33,268
+project, then launch aider with a model and key.
+
+9
+00:00:33,418 --> 00:00:39,003
+The README shows DeepSeek, Claude 3.7 Sonnet, and o3-mini as examples.
+
+10
+00:00:39,533 --> 00:00:45,187
+The benchmark report tracks pass rates, well formed responses, runtime, and cost.
+
+11
+00:00:45,337 --> 00:00:49,524
+Those numbers come from the benchmark harness that evaluates edits against unit
+
+12
+00:00:49,524 --> 00:00:49,842
+tests.
+
+13
+00:00:50,367 --> 00:00:54,932
+To reproduce a run, clone the repo, build the docker container, and launch the
+
+14
+00:00:54,932 --> 00:00:56,102
+benchmark inside it.
+
+15
+00:00:56,252 --> 00:01:00,757
+Then install the development build and run benchmark.py with your model and edit
+
+16
+00:01:00,757 --> 00:01:01,151
+format.
+
+17
+00:01:01,667 --> 00:01:04,070
+Clone Aider and try it on your own codebase.
+
+18
+00:01:04,220 --> 00:01:08,005
+If you want measurable results, the benchmark harness is ready too.

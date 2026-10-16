@@ -1,0 +1,342 @@
+{
+ "version": 1,
+ "repo_url": "https://github.com/aintropy-ai/kurious_ui",
+ "commit_sha": "82a230f38294fa8f7aa55ff69de1e7e719ad9fb5",
+ "title": "Kurious UI prototype",
+ "sources": {
+  "readme": {
+   "kind": "text",
+   "id": "readme",
+   "file": "README.md",
+   "start_line": 3,
+   "end_line": 20,
+   "text": "A high-fidelity prototype of the redesigned Kurious search experience.\n\n## Running locally\n\n```bash\nnpm install\nnpm run dev\n```\n\nThen open http://localhost:5173\n\n## Building for GitHub Pages\n\n```bash\nnpm run build\n```\n\nOutputs to `dist/` — deploy this folder to GitHub Pages."
+  },
+  "features": {
+   "kind": "text",
+   "id": "features",
+   "file": "README.md",
+   "start_line": 22,
+   "end_line": 38,
+   "text": "## What's in the prototype\n\n### All 4 States\n| State | Description |\n|---|---|\n| **1 — Idle** | Personalized greeting, suggested questions, modality hint |\n| **2 — Typing** | Greeting scrolls away, \"You might also ask\" suggestions appear |\n| **3 — Thinking** | Live step-by-step trace animation |\n| **4 — Answer** | Stacked conversation with answer cards |\n\n### Key Features\n- **First Visit vs Returning** toggle (top right) — shows both greeting experiences\n- **Quick ⚡ vs Think Deeper 🔍** mode toggle — different placeholder text and thinking animations\n- **View Sources** — expandable panel grouped by Primary / Supporting / Additional, each with \"Used for:\" labels\n- **Feedback system** — 👍 path shows positive tags, 👎 path shows specific options\n- **Smart suggestion cards** — never repeat asked questions, always relevant to latest answer\n- **Stacked conversation** — full session history, new cards fade in/out"
+  },
+  "run": {
+   "kind": "text",
+   "id": "run",
+   "file": "README.md",
+   "start_line": 5,
+   "end_line": 12,
+   "text": "## Running locally\n\n```bash\nnpm install\nnpm run dev\n```\n\nThen open http://localhost:5173"
+  },
+  "app_submit": {
+   "kind": "text",
+   "id": "app_submit",
+   "file": "src/App.jsx",
+   "start_line": 339,
+   "end_line": 356,
+   "text": "  const handleSubmit = (query) => {\n    if (!query.trim() || isThinking) return\n    setHasStarted(true)\n    setInputValue('')\n    setPendingQuestion(query)\n    setThinkingMode(mode)\n    setIsThinking(true)\n    setLatestSuggestions([])\n    setAskedQuestions(prev => new Set([...prev, query.toLowerCase().trim()]))\n  }\n\n  const handleThinkingComplete = () => {\n    const result = getAnswerForQuestion(pendingQuestion)\n    const newConv = {\n      id: Date.now(),\n      question: pendingQuestion,\n      answer: thinkingMode === 'deeper' ? result.deeperAnswer : result.answer,\n      mode: thinkingMode,"
+  },
+  "thinking": {
+   "kind": "text",
+   "id": "thinking",
+   "file": "src/components/ThinkingState.jsx",
+   "start_line": 3,
+   "end_line": 20,
+   "text": "const QUICK_STEPS = [\n  'Understood your question',\n  'Searching across 57M documents',\n  'Scanning videos, data & documents',\n  'Connecting insights',\n]\n\nconst DEEPER_STEPS = [\n  'Understood your question',\n  'Searching across 57M documents',\n  'Scanning videos, data & documents',\n  'Cross-referencing sources',\n  'Analysing connections',\n  'Synthesising a comprehensive answer',\n]\n\nexport default function ThinkingState({ mode, onComplete }) {\n  const steps = mode === 'deeper' ? DEEPER_STEPS : QUICK_STEPS"
+  },
+  "thinking_delay": {
+   "kind": "text",
+   "id": "thinking_delay",
+   "file": "src/components/ThinkingState.jsx",
+   "start_line": 79,
+   "end_line": 81,
+   "text": "      {mode === 'deeper' && (\n        <p className=\"text-xs text-k-muted/60 mt-6\">avg. under 10 seconds</p>\n      )}"
+  },
+  "answer": {
+   "kind": "text",
+   "id": "answer",
+   "file": "src/components/AnswerBlock.jsx",
+   "start_line": 18,
+   "end_line": 35,
+   "text": "export default function AnswerBlock({ conversation, isLatest }) {\n  const [sourcesOpen, setSourcesOpen] = useState(false)\n  const { question, answer, mode, time, modalities, modalityText, sources } = conversation\n\n  return (\n    <div className=\"animate-slide-up mb-2\">\n      {/* Question label */}\n      <div className=\"flex items-center gap-2 mb-3\">\n        <span className=\"text-xs font-semibold text-k-muted uppercase tracking-wider\">Q</span>\n        <p className=\"text-sm text-k-muted\">{question}</p>\n        <span className={`ml-auto flex-shrink-0 text-xs font-medium px-2 py-0.5 rounded-full border ${\n          mode === 'quick'\n            ? 'border-k-cyan/40 text-k-cyan'\n            : 'border-purple-400/40 text-purple-400'\n        }`}>\n          {mode === 'quick' ? '⚡ Quick' : '🔍 Deep Dive'}\n        </span>\n      </div>"
+  },
+  "answer_panel": {
+   "kind": "text",
+   "id": "answer_panel",
+   "file": "src/components/AnswerBlock.jsx",
+   "start_line": 37,
+   "end_line": 67,
+   "text": "      {/* Answer */}\n      <div className=\"border border-k-border rounded-xl overflow-hidden\">\n        <div className=\"p-5\">\n          <p className=\"text-k-text leading-relaxed text-[15px]\">{answer}</p>\n        </div>\n\n        {/* Provenance strip */}\n        <div className=\"border-t border-k-border px-5 py-3 flex items-center justify-between flex-wrap gap-2\">\n          <div className=\"flex items-center gap-3 flex-wrap\">\n            <ModalityIcons modalities={modalities} />\n            <span className=\"text-k-border\">·</span>\n            <span className=\"text-sm text-k-cyan font-medium\">{time}</span>\n          </div>\n          <button\n            onClick={() => setSourcesOpen(!sourcesOpen)}\n            className=\"text-xs text-k-muted hover:text-k-cyan transition-colors flex items-center gap-1\"\n          >\n            {sourcesOpen ? '▾ Hide Sources' : '▸ View Sources'}\n          </button>\n        </div>\n\n        {/* Provenance description */}\n        <div className=\"px-5 pb-3\">\n          <p className=\"text-xs text-k-muted\">I reviewed {modalityText}</p>\n        </div>\n\n        {/* Sources panel */}\n        {sourcesOpen && (\n          <div className=\"border-t border-k-border px-5\">\n            <SourcesPanel sources={sources} isOpen={sourcesOpen} />\n          </div>"
+  },
+  "mockdata": {
+   "kind": "text",
+   "id": "mockdata",
+   "file": "src/data/mockData.js",
+   "start_line": 1,
+   "end_line": 26,
+   "text": "export const MOCK_QA = [\n  {\n    id: 'q1',\n    question: 'Which NJ townships have the most employees with terminal leave benefits?',\n    answer: 'Bergen County leads with 12,400 employees on terminal leave, representing 31.4% of eligible staff — significantly above the state average of 18.2%. Essex County follows at 9,200 (29.5%), and Hudson County at 8,100 (27.1%).',\n    deeperAnswer: 'Bergen County leads with 12,400 employees on terminal leave, representing 31.4% of eligible staff — significantly above the state average of 18.2%. Essex County follows at 9,200 (29.5%), and Hudson County at 8,100 (27.1%). This pattern correlates strongly with union density: Bergen, Essex, and Hudson all have unionization rates above 62%, compared to a statewide average of 41%. Historical data shows this gap has widened 18% over the past decade, driven by an aging workforce and legacy benefit structures negotiated in the 1990s.',\n    time: '0.18s',\n    deeperTime: '3.2s',\n    modalities: { documents: 3, data: 1 },\n    modalityText: 'documents & data tables',\n    sources: {\n      primary: [\n        { icon: '📄', name: 'NJ Civil Service Commission Report 2024', usedFor: 'county headcount data' },\n        { icon: '📊', name: 'NJ Benefits Registry · Table 3', usedFor: 'terminal leave figures' },\n      ],\n      supporting: [\n        { icon: '📄', name: 'State HR Policy Manual v6', usedFor: 'eligibility criteria' },\n      ],\n      additional: [\n        { icon: '📄', name: 'Department of Human Services Annual Summary', usedFor: 'cross-reference validation' },\n      ],\n    },\n    suggestions: [\n      'How does Bergen compare to the state average?',\n      'What benefits do terminal leave employees receive?',\n    ],"
+  },
+  "mockdata2": {
+   "kind": "text",
+   "id": "mockdata2",
+   "file": "src/data/mockData.js",
+   "start_line": 53,
+   "end_line": 67,
+   "text": "    id: 'q3',\n    question: 'How many migrant students are enrolled per school district?',\n    answer: 'Newark Public Schools has the highest migrant student enrollment at 4,280 students (8.3% of total enrollment), followed by Paterson at 3,190 (9.1%) and Trenton at 2,840 (7.8%). Northern NJ districts show consistently higher enrollment rates.',\n    deeperAnswer: 'Newark Public Schools leads with 4,280 migrant students (8.3%), followed by Paterson 3,190 (9.1%), Trenton 2,840 (7.8%), New Brunswick 2,100 (11.2%), and Elizabeth 1,980 (6.4%). New Brunswick has the highest percentage despite not being the largest district, primarily due to its proximity to agricultural employment corridors in Middlesex County.',\n    time: '0.22s',\n    deeperTime: '5.6s',\n    modalities: { documents: 2, data: 1, images: 1 },\n    modalityText: 'documents, data & images',\n    sources: {\n      primary: [\n        { icon: '📄', name: 'NJ DOE Enrollment Report 2024', usedFor: 'district enrollment figures' },\n        { icon: '📊', name: 'Migrant Education Data Registry', usedFor: 'migrant student counts' },\n      ],\n      supporting: [\n        { icon: '🖼️', name: 'District Enrollment Map · 2024', usedFor: 'geographic distribution' },"
+  },
+  "logo": {
+   "kind": "image",
+   "id": "logo",
+   "file": "public/logo.png"
+  }
+ },
+ "scenes": [
+  {
+   "narration": [
+    {
+     "text": "Kurious UI is a high-fidelity prototype for a redesigned search experience.",
+     "source_ids": [
+      "readme"
+     ]
+    },
+    {
+     "text": "It shows the full flow from sign-in to answer cards.",
+     "source_ids": [
+      "app_submit",
+      "answer"
+     ]
+    }
+   ],
+   "type": "title",
+   "heading": "Kurious UI",
+   "subheading": "A high-fidelity prototype for a redesigned search experience."
+  },
+  {
+   "narration": [
+    {
+     "text": "The brand leans into a dark, cyan-accented identity.",
+     "source_ids": [
+      "readme"
+     ]
+    },
+    {
+     "text": "That logo sets the tone before the interface even loads.",
+     "source_ids": [
+      "logo",
+      "readme"
+     ]
+    }
+   ],
+   "type": "image",
+   "image_id": "logo",
+   "highlights": [
+    [
+     0.34,
+     0.12,
+     0.58,
+     0.72
+    ]
+   ],
+   "motion": {
+    "kind": "ken_burns",
+    "from_rect": [
+     0.28,
+     0.18,
+     0.52,
+     0.62
+    ],
+    "to_rect": [
+     0.36,
+     0.14,
+     0.46,
+     0.56
+    ]
+   }
+  },
+  {
+   "narration": [
+    {
+     "text": "The README calls out four states: idle, typing, thinking, and answer.",
+     "source_ids": [
+      "features"
+     ]
+    },
+    {
+     "text": "It also highlights toggles for visit history, mode, sources, and feedback.",
+     "source_ids": [
+      "features"
+     ]
+    }
+   ],
+   "type": "bullets",
+   "heading": "What the prototype covers",
+   "items": [
+    "Idle, typing, thinking, answer states",
+    "First Visit and Returning toggles",
+    "Quick and Deep Dive modes",
+    "View Sources and feedback flows"
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "When you submit a query, the app starts a thinking pass and stores the question.",
+     "source_ids": [
+      "app_submit"
+     ]
+    },
+    {
+     "text": "After the trace completes, it picks the answer and follow-up suggestions.",
+     "source_ids": [
+      "app_submit"
+     ]
+    }
+   ],
+   "type": "code",
+   "span_id": "app_submit",
+   "highlight_lines": [
+    339,
+    345,
+    350,
+    355
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "The thinking animation steps through a quick or deeper trace.",
+     "source_ids": [
+      "thinking"
+     ]
+    },
+    {
+     "text": "The deeper path adds more steps and shows an average under 10 seconds.",
+     "source_ids": [
+      "thinking_delay"
+     ]
+    }
+   ],
+   "type": "code",
+   "span_id": "thinking",
+   "highlight_lines": [
+    3,
+    10,
+    19
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "The mock data gives the first answer in 0.18s.",
+     "source_ids": [
+      "mockdata"
+     ]
+    },
+    {
+     "text": "That same result combines 3 documents and 1 data table, while another path includes 1 image.",
+     "source_ids": [
+      "mockdata",
+      "mockdata2",
+      "features"
+     ]
+    }
+   ],
+   "type": "metrics_table",
+   "columns": [
+    "Metric",
+    "Value"
+   ],
+   "rows": [
+    [
+     "Quick answer time",
+     "0.18s"
+    ],
+    [
+     "Documents in the first result",
+     "3"
+    ],
+    [
+     "Data tables in the first result",
+     "1"
+    ],
+    [
+     "Images in the migrant-student result",
+     "1"
+    ],
+    [
+     "Deep-dive time",
+     "5.6s"
+    ]
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "Each answer card shows the response, mode badge, and provenance strip.",
+     "source_ids": [
+      "answer"
+     ]
+    },
+    {
+     "text": "Users can expand sources, then inspect the grouped provenance panel.",
+     "source_ids": [
+      "answer_panel",
+      "features"
+     ]
+    }
+   ],
+   "type": "code",
+   "span_id": "answer",
+   "highlight_lines": [
+    18,
+    28,
+    33
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "To try it locally, run npm install and npm run dev.",
+     "source_ids": [
+      "run"
+     ]
+    },
+    {
+     "text": "Then open the local server in your browser and explore the prototype.",
+     "source_ids": [
+      "run"
+     ]
+    }
+   ],
+   "type": "terminal",
+   "command_span_ids": [
+    "run"
+   ],
+   "output_span_id": null
+  },
+  {
+   "narration": [
+    {
+     "text": "Clone the repository and explore the redesigned search flow.",
+     "source_ids": [
+      "readme"
+     ]
+    },
+    {
+     "text": "Use the documented build command when you are ready to ship.",
+     "source_ids": [
+      "readme",
+      "run"
+     ]
+    }
+   ],
+   "type": "outro",
+   "repo_url": "https://github.com/aintropy-ai/kurious_ui",
+   "cta": "Clone it and explore the redesigned search flow."
+  }
+ ],
+ "llm": {
+  "provider": "openai",
+  "model": "gpt-5.4-mini"
+ }
+}

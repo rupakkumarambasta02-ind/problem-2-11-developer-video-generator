@@ -1,0 +1,62 @@
+{
+ "run_id": "20261016T082950Z-8037c2",
+ "started_at": "2026-10-16T08:29:50+00:00",
+ "ended_at": "2026-10-16T08:31:07+00:00",
+ "repo_url": "https://github.com/Aider-AI/aider",
+ "commit_sha": "5dc9490bb35f9729ef2c95d00a19ccd30c26339c",
+ "llm": {
+  "provider": "openai",
+  "model": "gpt-5.4-mini",
+  "temperature": 0.3
+ },
+ "status": "ok",
+ "exit_code": 0,
+ "failure": null,
+ "ingest": {
+  "n_files": 683,
+  "skipped_by_reason": {
+   "ignored_dir": 1,
+   "too_large": 8
+  }
+ },
+ "budget": {
+  "max_steps": 35,
+  "steps_used": 7,
+  "tool_calls": {
+   "read_file": 7,
+   "grep": 3,
+   "submit_storyboard": 3
+  }
+ },
+ "usage": {
+  "input": 23327,
+  "output": 3468,
+  "cache_read_input": 108288,
+  "cache_write_input": 0
+ },
+ "cost_usd": 0.041223,
+ "cost_unknown_reason": null,
+ "context": null,
+ "validation": {
+  "storyboard_rounds": 3,
+  "duration_rounds": 0,
+  "failures_by_code": {
+   "SCHEMA": 1,
+   "NOT_A_DATA_FILE": 5
+  }
+ },
+ "tts_engine": "piper",
+ "stage_seconds": {
+  "ingest": 14.703,
+  "agent": 23.516,
+  "voice": 4.656,
+  "render": 7.094,
+  "compose": 18.485
+ },
+ "video": {
+  "path": "output\\aider\\explainer.mp4",
+  "duration_s": 68.6,
+  "size_bytes": 2393759,
+  "narration_s": 63.832
+ }
+}

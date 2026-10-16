@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="img-label">{{ file }}</div>
+<div class="img-wrap"><img id="img" src="{{ src }}" alt=""></div>
+{% endblock %}
+{% block script %}
+<script>
+const HIGHLIGHTS = {{ highlights | tojson }};
+window.__beforeReady = async () => {
+  const img = document.getElementById("img");
+  await img.decode();
+  const cw = img.clientWidth, ch = img.clientHeight;
+  const s = Math.min(cw / img.naturalWidth, ch / img.naturalHeight);
+  const w = img.naturalWidth * s, h = img.naturalHeight * s;
+  const r = img.getBoundingClientRect();
+  const box = { x: r.left + (cw - w) / 2, y: r.top + (ch - h) / 2, w: w, h: h };
+  window.__codecast.image_box = box;
+  for (const [x, y, bw, bh] of HIGHLIGHTS) {
+    const d = document.createElement("div");
+    d.className = "box";
+    Object.assign(d.style, { left: (box.x + x * box.w) + "px", top: (box.y + y * box.h) + "px",
+                             width: (bw * box.w) + "px", height: (bh * box.h) + "px" });
+    document.body.appendChild(d);
+  }
+};
+</script>
+{% endblock %}

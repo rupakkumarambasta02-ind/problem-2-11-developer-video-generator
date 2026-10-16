@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="stage">
+  <div class="kicker">{{ kicker }}</div><div class="counter">{{ scene_number }} / {{ scene_count }}</div>
+  <table class="metrics">
+    <tr>{% for c in columns %}<th class="{{ 'num' if num_cols[loop.index0] else '' }}">{{ c }}</th>{% endfor %}</tr>
+    {% for row in rows %}<tr>{% for cell in row %}<td class="{{ 'num' if cell.num else '' }}">{{ cell.text }}</td>{% endfor %}</tr>{% endfor %}
+  </table>
+</div>
+{% endblock %}

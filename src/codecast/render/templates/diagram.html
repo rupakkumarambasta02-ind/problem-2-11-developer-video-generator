@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="stage">
+  <div class="kicker">{{ kicker }}</div><div class="counter">{{ scene_number }} / {{ scene_count }}</div>
+  <div class="diagram" id="diagram"></div>
+</div>
+<pre id="src" hidden>{{ mermaid }}</pre>
+{% endblock %}
+{% block script %}
+<script src="{{ static }}/mermaid.min.js"></script>
+<script>
+window.__beforeReady = async () => {
+  mermaid.initialize({ startOnLoad: false, theme: "dark", securityLevel: "strict",
+                       themeVariables: { fontFamily: "Inter", fontSize: "30px" } });
+  const { svg } = await mermaid.render("cc_diagram", document.getElementById("src").textContent);
+  document.getElementById("diagram").innerHTML = svg;
+};
+</script>
+{% endblock %}

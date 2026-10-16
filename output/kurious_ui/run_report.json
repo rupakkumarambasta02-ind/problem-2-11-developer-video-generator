@@ -1,0 +1,66 @@
+{
+ "run_id": "20261016T085941Z-d9d56f",
+ "started_at": "2026-10-16T08:59:41+00:00",
+ "ended_at": "2026-10-16T09:01:22+00:00",
+ "repo_url": "https://github.com/aintropy-ai/kurious_ui",
+ "commit_sha": "82a230f38294fa8f7aa55ff69de1e7e719ad9fb5",
+ "llm": {
+  "provider": "openai",
+  "model": "gpt-5.4-mini",
+  "temperature": 0.3
+ },
+ "status": "ok",
+ "exit_code": 0,
+ "failure": null,
+ "ingest": {
+  "n_files": 23,
+  "skipped_by_reason": {
+   "ignored_dir": 3
+  }
+ },
+ "budget": {
+  "max_steps": 35,
+  "steps_used": 8,
+  "tool_calls": {
+   "read_file": 11,
+   "list_dir": 1,
+   "view_image": 1,
+   "submit_storyboard": 2
+  }
+ },
+ "usage": {
+  "input": 28061,
+  "output": 2713,
+  "cache_read_input": 103296,
+  "cache_write_input": 0
+ },
+ "cost_usd": 0.041001,
+ "cost_unknown_reason": null,
+ "context": null,
+ "validation": {
+  "storyboard_rounds": 2,
+  "duration_rounds": 0,
+  "failures_by_code": {
+   "NOT_A_DATA_FILE": 6,
+   "UNGROUNDED_NUMBER": 3,
+   "UNGROUNDED_IDENTIFIER": 1,
+   "CODE_TOO_LONG": 3,
+   "CODE_TOO_WIDE": 1,
+   "HIGHLIGHT_OUT_OF_RANGE": 1
+  }
+ },
+ "tts_engine": "piper",
+ "stage_seconds": {
+  "ingest": 9.829,
+  "agent": 28.031,
+  "voice": 6.234,
+  "render": 9.797,
+  "compose": 36.61
+ },
+ "video": {
+  "path": "output\\kurious_ui\\explainer.mp4",
+  "duration_s": 75.9,
+  "size_bytes": 4327553,
+  "narration_s": 69.915
+ }
+}

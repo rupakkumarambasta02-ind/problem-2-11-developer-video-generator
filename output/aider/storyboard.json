@@ -1,0 +1,276 @@
+{
+ "version": 1,
+ "repo_url": "https://github.com/Aider-AI/aider",
+ "commit_sha": "5dc9490bb35f9729ef2c95d00a19ccd30c26339c",
+ "title": "Aider in a minute",
+ "sources": {
+  "readme": {
+   "kind": "text",
+   "id": "readme",
+   "file": "README.md",
+   "start_line": 11,
+   "end_line": 18,
+   "text": "Aider lets you pair program with LLMs to start a new project or build on your existing codebase. \n</p>\n\n<p align=\"center\">\n  <img\n    src=\"https://aider.chat/assets/screencast.svg\"\n    alt=\"aider screencast\"\n  >"
+  },
+  "features": {
+   "kind": "text",
+   "id": "features",
+   "file": "README.md",
+   "start_line": 40,
+   "end_line": 52,
+   "text": "## Features\n\n### [Cloud and local LLMs](https://aider.chat/docs/llms.html)\n\n<a href=\"https://aider.chat/docs/llms.html\"><img src=\"https://aider.chat/assets/icons/brain.svg\" width=\"32\" height=\"32\" align=\"left\" valign=\"middle\" style=\"margin-right:10px\"></a>\nAider works best with Claude 3.7 Sonnet, DeepSeek R1 & Chat V3, OpenAI o1, o3-mini & GPT-4o, but can connect to almost any LLM, including local models.\n\n<br>\n\n### [Maps your codebase](https://aider.chat/docs/repomap.html)\n\n<a href=\"https://aider.chat/docs/repomap.html\"><img src=\"https://aider.chat/assets/icons/map-outline.svg\" width=\"32\" height=\"32\" align=\"left\" valign=\"middle\" style=\"margin-right:10px\"></a>\nAider makes a map of your entire codebase, which helps it work well in larger projects."
+  },
+  "gitfeat": {
+   "kind": "text",
+   "id": "gitfeat",
+   "file": "README.md",
+   "start_line": 63,
+   "end_line": 66,
+   "text": "### [Git integration](https://aider.chat/docs/git.html)\n\n<a href=\"https://aider.chat/docs/git.html\"><img src=\"https://aider.chat/assets/icons/source-branch.svg\" width=\"32\" height=\"32\" align=\"left\" valign=\"middle\" style=\"margin-right:10px\"></a>\nAider automatically commits changes with sensible commit messages. Use familiar git tools to easily diff, manage and undo AI changes."
+  },
+  "gettingstarted": {
+   "kind": "text",
+   "id": "gettingstarted",
+   "file": "README.md",
+   "start_line": 103,
+   "end_line": 120,
+   "text": "## Getting Started\n\n```bash\npython -m pip install aider-install\naider-install\n\n# Change directory into your codebase\ncd /to/your/project\n\n# DeepSeek\naider --model deepseek --api-key deepseek=<key>\n\n# Claude 3.7 Sonnet\naider --model sonnet --api-key anthropic=<key>\n\n# o3-mini\naider --model o3-mini --api-key openai=<key>\n```"
+  },
+  "benchreadme": {
+   "kind": "text",
+   "id": "benchreadme",
+   "file": "benchmark/README.md",
+   "start_line": 4,
+   "end_line": 18,
+   "text": "Aider uses benchmarks to quantitatively measure how well it works\nwith various LLMs.\nThis directory holds the harness and tools needed to run the benchmarking suite.\n\n## Background\n\nThe benchmark is based on the [Exercism](https://github.com/exercism/python) coding exercises.\nThis\nbenchmark evaluates how effectively aider and LLMs can translate a\nnatural language coding request into executable code saved into\nfiles that pass unit tests.\nIt provides an end-to-end evaluation of not just\nthe LLM's coding ability, but also its capacity to *edit existing code*\nand *format those code edits* so that aider can save the\nedits to the local source files."
+  },
+  "benchusage": {
+   "kind": "text",
+   "id": "benchusage",
+   "file": "benchmark/README.md",
+   "start_line": 29,
+   "end_line": 37,
+   "text": "## Usage\n\nThere are 3 main tasks involved in benchmarking aider:\n\n1. Install and setup for benchmarking.\n\n2. Run the benchmark to measure performance across all the exercises.\n\n3. Generate a summary report of how many of the exercises succeeded or failed."
+  },
+  "benchsetup": {
+   "kind": "text",
+   "id": "benchsetup",
+   "file": "benchmark/README.md",
+   "start_line": 44,
+   "end_line": 57,
+   "text": "```\n# Clone the aider repo\ngit clone https://github.com/Aider-AI/aider.git\n\n# Create the scratch dir to hold benchmarking results inside the main aider dir:\ncd aider\nmkdir tmp.benchmarks\n\n# Clone the repo with the exercises\ngit clone https://github.com/Aider-AI/polyglot-benchmark tmp.benchmarks/polyglot-benchmark\n\n# Build the docker container\n./benchmark/docker_build.sh\n```"
+  },
+  "benchrun": {
+   "kind": "text",
+   "id": "benchrun",
+   "file": "benchmark/README.md",
+   "start_line": 61,
+   "end_line": 73,
+   "text": "Launch the docker container and run the benchmark inside it:\n\n```\n# Launch the docker container\n./benchmark/docker.sh\n\n# Inside the container, install aider as a development build.\n# This way you're running the code that you cloned above, including any local changes.\npip install -e .[dev]\n\n# Run the benchmark:\n./benchmark/benchmark.py a-helpful-name-for-this-run --model gpt-3.5-turbo --edit-format whole --threads 10 --exercises-dir polyglot-benchmark\n```"
+  },
+  "benchreport": {
+   "kind": "text",
+   "id": "benchreport",
+   "file": "benchmark/README.md",
+   "start_line": 98,
+   "end_line": 123,
+   "text": "The benchmark report is a yaml record with statistics about the run:\n\n```yaml\n- dirname: 2024-07-04-14-32-08--claude-3.5-sonnet-diff-continue\n  test_cases: 225\n  model: claude-3.5-sonnet\n  edit_format: diff\n  commit_hash: 35f21b5\n  pass_rate_1: 57.1\n  pass_rate_2: 77.4\n  percent_cases_well_formed: 99.2\n  error_outputs: 23\n  num_malformed_responses: 4\n  num_with_malformed_responses: 1\n  user_asks: 2\n  lazy_comments: 0\n  syntax_errors: 1\n  indentation_errors: 0\n  exhausted_context_windows: 0\n  test_timeouts: 1\n  command: aider --sonnet\n  date: 2024-07-04\n  versions: 0.42.1-dev\n  seconds_per_case: 17.6\n  total_cost: 3.6346\n```"
+  },
+  "summarize": {
+   "kind": "text",
+   "id": "summarize",
+   "file": "benchmark/benchmark.py",
+   "start_line": 468,
+   "end_line": 607,
+   "text": "def summarize_results(dirname, stats_languages=None):\n    all_results = load_results(dirname, stats_languages)\n\n    res = SimpleNamespace()\n    res.total_tests = len(list(Path(dirname).glob(\"*/exercises/practice/*\")))\n\n    try:\n        tries = max(len(results.get(\"tests_outcomes\", [])) for results in all_results if results)\n    except ValueError:\n        tries = 0\n\n    res.dir_name = str(dirname)\n\n    passed_tests = [0] * tries\n\n    res.completed_tests = 0\n    res.duration = 0\n    res.cost = 0\n    res.error_outputs = 0\n    res.user_asks = 0\n    res.test_timeouts = 0\n    res.exhausted_context_windows = 0\n    res.num_malformed_responses = 0\n    res.num_with_malformed_responses = 0\n    res.syntax_errors = 0\n    res.indentation_errors = 0\n    res.lazy_comments = 0\n    res.prompt_tokens = 0\n    res.completion_tokens = 0\n\n    res.reasoning_effort = None\n    res.thinking_tokens = None\n    variants = defaultdict(set)\n\n    for results in all_results:\n        if not results:\n            continue\n\n        res.completed_tests += 1\n        tests_outcomes = results.get(\"tests_outcomes\", [])\n        passed = tests_outcomes and tests_outcomes[-1]\n        if passed:\n            for i in range(len(tests_outcomes) - 1, tries):\n                passed_tests[i] += 1\n\n        res.cost += results.get(\"cost\", 0)\n        res.duration += results.get(\"duration\", 0)\n        res.test_timeouts += results.get(\"test_timeouts\", 0)\n\n        res.error_outputs += results.get(\"num_error_outputs\", 0)\n        res.user_asks += results.get(\"num_user_asks\", 0)\n        res.exhausted_context_windows += results.get(\"num_exhausted_context_windows\", 0)\n        res.num_malformed_responses += results.get(\"num_malformed_responses\", 0)\n        if results.get(\"num_malformed_responses\"):\n            res.num_with_malformed_responses += 1\n        res.lazy_comments += results.get(\"lazy_comments\", 0)\n\n        res.syntax_errors += results.get(\"syntax_errors\", 0)\n        res.indentation_errors += results.get(\"indentation_errors\", 0)\n\n        res.prompt_tokens += results.get(\"prompt_tokens\", 0)\n        res.completion_tokens += results.get(\"completion_tokens\", 0)\n\n        res.reasoning_effort = results.get(\"reasoning_effort\")\n        res.thinking_tokens = results.get(\"thinking_tokens\")\n\n        for key in \"model edit_format commit_hash editor_model editor_edit_format\".split():\n            val = results.get(key)\n            if val:\n                variants[key].add(val)\n\n    if not res.completed_tests:\n        return\n\n    # if res.completed_tests < 133:\n    #    return\n\n    console = Console(highlight=False)\n    console.rule(title=str(dirname))\n\n    commit_hashes = variants[\"commit_hash\"]\n    versions = get_versions(commit_hashes)\n    date = dirname.name[:10]\n\n    def show(stat, red=\"red\"):\n        val = getattr(res, stat)\n        style = red if val else None\n        console.print(f\"  {stat}: {val}\", style=style)\n\n    percents = dict()\n    for i in range(tries):\n        pass_rate = 100 * passed_tests[i] / res.completed_tests\n        percents[i] = pass_rate\n        # console.print(f\"{pass_rate:.1f}% correct after try {i+1}\")\n        setattr(res, f\"pass_rate_{i + 1}\", f\"{pass_rate:.1f}\")\n        setattr(res, f\"pass_num_{i + 1}\", passed_tests[i])\n\n    print(f\"- dirname: {dirname.name}\")\n    style = None if res.completed_tests == res.total_tests else \"red\"\n    console.print(f\"  test_cases: {res.completed_tests}\", style=style)\n    for key, val in variants.items():\n        if len(val) > 1:\n            style = \"red\"\n        else:\n            style = None\n        val = \", \".join(map(str, val))\n        setattr(res, key, val)\n        console.print(f\"  {key}: {val}\", style=style)\n\n    if res.reasoning_effort is not None:\n        print(f\"  reasoning_effort: {res.reasoning_effort}\")\n    if res.thinking_tokens is not None:\n        print(f\"  thinking_tokens: {res.thinking_tokens}\")\n\n    for i in range(tries):\n        print(f\"  pass_rate_{i + 1}: {percents[i]:.1f}\")\n    for i in range(tries):\n        print(f\"  pass_num_{i + 1}: {passed_tests[i]}\")\n\n    pct_well_formed = 1.0 - res.num_with_malformed_responses / res.completed_tests\n    print(f\"  percent_cases_well_formed: {pct_well_formed * 100:.1f}\")\n\n    show(\"error_outputs\")\n    show(\"num_malformed_responses\")\n    show(\"num_with_malformed_responses\")\n    show(\"user_asks\")\n    show(\"lazy_comments\")\n    show(\"syntax_errors\")\n    show(\"indentation_errors\")\n    show(\"exhausted_context_windows\")\n    show(\"prompt_tokens\", red=None)\n    show(\"completion_tokens\", red=None)\n    show(\"test_timeouts\")\n    print(f\"  total_tests: {res.total_tests}\")\n\n    if variants[\"model\"]:\n        a_model = set(variants[\"model\"]).pop()\n        command = f\"aider --model {a_model}\"\n        print(f\"  command: {command}\")\n"
+  }
+ },
+ "scenes": [
+  {
+   "narration": [
+    {
+     "text": "Aider brings AI pair programming into your terminal.",
+     "source_ids": [
+      "readme"
+     ]
+    },
+    {
+     "text": "It helps you start new work or extend an existing codebase.",
+     "source_ids": [
+      "readme"
+     ]
+    }
+   ],
+   "type": "title",
+   "heading": "Aider",
+   "subheading": "AI pair programming in your terminal."
+  },
+  {
+   "narration": [
+    {
+     "text": "Aider maps your codebase so it can work in larger projects.",
+     "source_ids": [
+      "features"
+     ]
+    },
+    {
+     "text": "It connects to cloud and local LLMs, and it accepts images, web pages, and voice.",
+     "source_ids": [
+      "features"
+     ]
+    }
+   ],
+   "type": "bullets",
+   "heading": "What it does",
+   "items": [
+    "Maps your codebase",
+    "Supports cloud and local LLMs",
+    "Works with git commits",
+    "Handles images, web pages, and voice"
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "The workflow stays grounded in git, with automatic commits and sensible messages.",
+     "source_ids": [
+      "gitfeat"
+     ]
+    },
+    {
+     "text": "That makes it easy to diff, manage, and undo AI changes.",
+     "source_ids": [
+      "gitfeat"
+     ]
+    }
+   ],
+   "type": "bullets",
+   "heading": "Git-first workflow",
+   "items": [
+    "Automatic commits",
+    "Sensible commit messages",
+    "Diff, manage, and undo changes"
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "Getting started is a short shell session: install aider-install, change into your project, then launch aider with a model and key.",
+     "source_ids": [
+      "gettingstarted"
+     ]
+    },
+    {
+     "text": "The README shows DeepSeek, Claude 3.7 Sonnet, and o3-mini as examples.",
+     "source_ids": [
+      "gettingstarted"
+     ]
+    }
+   ],
+   "type": "code",
+   "span_id": "gettingstarted",
+   "highlight_lines": [
+    105,
+    106,
+    107,
+    110,
+    113,
+    116,
+    119
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "The benchmark report tracks pass rates, well formed responses, runtime, and cost.",
+     "source_ids": [
+      "benchreport",
+      "summarize"
+     ]
+    },
+    {
+     "text": "Those numbers come from the benchmark harness that evaluates edits against unit tests.",
+     "source_ids": [
+      "benchreadme",
+      "summarize"
+     ]
+    }
+   ],
+   "type": "metrics_table",
+   "columns": [
+    "Metric",
+    "Value"
+   ],
+   "rows": [
+    [
+     "pass_rate_1",
+     "57.1"
+    ],
+    [
+     "pass_rate_2",
+     "77.4"
+    ],
+    [
+     "percent_cases_well_formed",
+     "99.2"
+    ],
+    [
+     "seconds_per_case",
+     "17.6"
+    ],
+    [
+     "total_cost",
+     "3.6346"
+    ]
+   ]
+  },
+  {
+   "narration": [
+    {
+     "text": "To reproduce a run, clone the repo, build the docker container, and launch the benchmark inside it.",
+     "source_ids": [
+      "benchsetup",
+      "benchrun"
+     ]
+    },
+    {
+     "text": "Then install the development build and run benchmark.py with your model and edit format.",
+     "source_ids": [
+      "benchrun"
+     ]
+    }
+   ],
+   "type": "terminal",
+   "command_span_ids": [
+    "benchsetup",
+    "benchrun"
+   ],
+   "output_span_id": null
+  },
+  {
+   "narration": [
+    {
+     "text": "Clone Aider and try it on your own codebase.",
+     "source_ids": [
+      "readme",
+      "gettingstarted"
+     ]
+    },
+    {
+     "text": "If you want measurable results, the benchmark harness is ready too.",
+     "source_ids": [
+      "benchreadme",
+      "benchrun"
+     ]
+    }
+   ],
+   "type": "outro",
+   "repo_url": "https://github.com/Aider-AI/aider",
+   "cta": "Try Aider on your own codebase."
+  }
+ ],
+ "llm": {
+  "provider": "openai",
+  "model": "gpt-5.4-mini"
+ }
+}

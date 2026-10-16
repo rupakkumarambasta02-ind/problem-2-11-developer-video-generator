@@ -1,0 +1,75 @@
+1
+00:00:00,000 --> 00:00:04,632
+Kurious UI is a high-fidelity prototype for a redesigned search experience.
+
+2
+00:00:04,782 --> 00:00:07,604
+It shows the full flow from sign-in to answer cards.
+
+3
+00:00:08,133 --> 00:00:11,233
+The brand leans into a dark, cyan-accented identity.
+
+4
+00:00:11,383 --> 00:00:14,669
+That logo sets the tone before the interface even loads.
+
+5
+00:00:15,200 --> 00:00:19,774
+The README calls out four states: idle, typing, thinking, and answer.
+
+6
+00:00:19,924 --> 00:00:24,731
+It also highlights toggles for visit history, mode, sources, and feedback.
+
+7
+00:00:25,233 --> 00:00:29,332
+When you submit a query, the app starts a thinking pass and stores the question.
+
+8
+00:00:29,482 --> 00:00:33,557
+After the trace completes, it picks the answer and follow-up suggestions.
+
+9
+00:00:34,067 --> 00:00:36,934
+The thinking animation steps through a quick or deeper trace.
+
+10
+00:00:37,084 --> 00:00:40,881
+The deeper path adds more steps and shows an average under 10 seconds.
+
+11
+00:00:41,400 --> 00:00:44,720
+The mock data gives the first answer in 0.18s.
+
+12
+00:00:44,870 --> 00:00:49,964
+That same result combines 3 documents and 1 data table, while another path includes
+
+13
+00:00:49,964 --> 00:00:50,455
+1 image.
+
+14
+00:00:50,967 --> 00:00:55,286
+Each answer card shows the response, mode badge, and provenance strip.
+
+15
+00:00:55,436 --> 00:00:59,464
+Users can expand sources, then inspect the grouped provenance panel.
+
+16
+00:00:59,967 --> 00:01:04,042
+To try it locally, run npm install and npm run dev.
+
+17
+00:01:04,192 --> 00:01:07,826
+Then open the local server in your browser and explore the prototype.
+
+18
+00:01:08,333 --> 00:01:11,828
+Clone the repository and explore the redesigned search flow.
+
+19
+00:01:11,978 --> 00:01:15,380
+Use the documented build command when you are ready to ship.

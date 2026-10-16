@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="stage center">
+  <div class="kicker">Repository tour</div>
+  <h1>{{ heading }}</h1>
+  {% if subheading %}<div class="sub">{{ subheading }}</div>{% endif %}
+  <div class="url">{{ repo_url }}</div>
+</div>
+{% endblock %}

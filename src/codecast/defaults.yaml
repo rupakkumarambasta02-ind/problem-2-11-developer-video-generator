@@ -1,0 +1,39 @@
+llm:
+  provider: anthropic
+  model: claude-sonnet-5-5
+  api_key_env: ANTHROPIC_API_KEY
+  base_url: null
+  temperature: 0.3
+  max_tokens: 4096
+  timeout_s: 120
+  extended_thinking: false
+  caps: {}
+
+agent:
+  max_steps: 35
+  max_total_tokens: 600000
+  wall_clock_s: 180
+  revision_steps: 15
+
+voice:
+  piper_voice: en_US-lessac-medium
+  voices_dir: ~/.cache/codecast/voices
+  say_voice: Samantha
+  edge_voice: en-US-AriaNeural
+  gap_s: 0.15
+  tail_s: 0.5
+
+render:
+  terminal_output_allowlist: ["*.log", "*.txt", "*.out", "logs/**", "**/output*"]
+
+pricing:
+  gpt-5.4-mini:
+    input_per_mtok: 0.75
+    output_per_mtok: 4.50
+    cache_read_per_mtok: 0.075
+    cache_write_per_mtok: 0.75
+  claude-sonnet-5-5:
+    input_per_mtok: 3.0
+    output_per_mtok: 15.0
+    cache_read_per_mtok: 0.30
+    cache_write_per_mtok: 3.75

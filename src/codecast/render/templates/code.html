@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block head %}<style>{{ code_css | safe }}</style>{% endblock %}
+{% block content %}
+<div class="stage">
+  <div class="kicker">{{ kicker }}</div><div class="counter">{{ scene_number }} / {{ scene_count }}</div>
+  <div class="code-wrap">
+    <div class="file">{{ file }} · lines {{ start }}–{{ end }}</div>
+    {{ code_html | safe }}
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+window.__beforeReady = async () => {
+  const wrap = document.querySelector(".code-wrap");
+  const style = document.createElement("style");
+  document.head.appendChild(style);
+  const overflows = () => wrap.scrollHeight > wrap.clientHeight || wrap.scrollWidth > wrap.clientWidth;
+  let size = 29;
+  while (overflows() && size > 18) {
+    size = Math.max(18, size - 1);
+    style.textContent = ".hl, .hl pre, .hl td, .hl span { font-size: " + size + "px !important; }";
+  }
+  if (overflows()) {
+    throw new Error("code does not fit the frame at the minimum font size (18px)");
+  }
+  window.__codecast.code_font_px = size;
+  window.__codecast.code_bottom = wrap.getBoundingClientRect().bottom;
+};
+</script>
+{% endblock %}

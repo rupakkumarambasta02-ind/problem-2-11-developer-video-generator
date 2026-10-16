@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="stage">
+  <div class="kicker">{{ kicker }}</div><div class="counter">{{ scene_number }} / {{ scene_count }}</div>
+  <div class="term">
+    <div class="dots"><i></i><i></i><i></i></div>
+    {% for cmd in commands[:visible] %}{% for line in cmd.split("\n") %}<div class="cmd"><span class="prompt">$ </span>{{ line }}</div>{% endfor %}{% endfor %}
+    {% if show_output and output %}<div class="out">{{ output }}</div>{% endif %}
+  </div>
+</div>
+{% endblock %}

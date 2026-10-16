@@ -1,0 +1,7 @@
+# Verified configuration for the committed demo (output/video-classifier/).
+# Use with: codecast run --config config/openai.yaml ...  (needs OPENAI_API_KEY)
+llm:
+  provider: openai
+  model: gpt-5.4-mini
+  api_key_env: OPENAI_API_KEY
+  max_tokens: 4096

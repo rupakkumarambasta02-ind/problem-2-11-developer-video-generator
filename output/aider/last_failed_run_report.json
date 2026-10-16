@@ -1,0 +1,63 @@
+{
+ "run_id": "20261016T082516Z-c114c1",
+ "started_at": "2026-10-16T08:25:16+00:00",
+ "ended_at": "2026-10-16T08:26:17+00:00",
+ "repo_url": "https://github.com/Aider-AI/aider",
+ "commit_sha": "5dc9490bb35f9729ef2c95d00a19ccd30c26339c",
+ "llm": {
+  "provider": "openai",
+  "model": "gpt-5.4-mini",
+  "temperature": 0.3
+ },
+ "status": "failed",
+ "exit_code": 5,
+ "failure": {
+  "stage": "agent",
+  "code": "ValidationFailed",
+  "message": "storyboard rejected 4 times in a row (first issues: [{'path': 'sources[8]', 'code': 'JSON_PARSE_ERROR', 'message': 'benchmark/README.md could not be parsed as JSON: Expecting value: line 2 column 1 (char 2)'}, {'path': 'sources[9]', 'code': 'JSON_PARSE_ERROR', 'message': 'benchmark/README.md could not be parsed as JSON: Expecting value: line 2 column 1 (char 2)'}, {'path': 'sources[10]', 'code': 'JSON_PARSE_ERROR', 'message': 'benchmark/README.md could not be parsed as JSON: Expecting value: line 2 column 1 (char 2)'}, {'path': 'sources[11]', 'code': 'JSON_PARSE_ERROR', 'message': 'benchmark/README.md could not be parsed as JSON: Expecting value: line 2 column 1 (char 2)'}, {'path': 'sources[12]', 'code': 'JSON_PARSE_ERROR', 'message': 'benchmark/README.md could not be parsed as JSON: Expecting value: line 2 column 1 (char 2)'}])",
+  "traceback": null
+ },
+ "ingest": {
+  "n_files": 683,
+  "skipped_by_reason": {
+   "ignored_dir": 1,
+   "too_large": 8
+  }
+ },
+ "budget": {
+  "max_steps": 35,
+  "steps_used": 13,
+  "tool_calls": {
+   "read_file": 21,
+   "grep": 2,
+   "list_dir": 1,
+   "submit_storyboard": 4,
+   "read_json": 1
+  }
+ },
+ "usage": {
+  "input": 33918,
+  "output": 4596,
+  "cache_read_input": 300032,
+  "cache_write_input": 0
+ },
+ "cost_usd": 0.068623,
+ "cost_unknown_reason": null,
+ "context": null,
+ "validation": {
+  "storyboard_rounds": 4,
+  "duration_rounds": 0,
+  "failures_by_code": {
+   "UNKNOWN_SOURCE_ID": 10,
+   "CODE_TOO_LONG": 4,
+   "WRONG_SOURCE_KIND": 5,
+   "JSON_PARSE_ERROR": 5
+  }
+ },
+ "tts_engine": "piper",
+ "stage_seconds": {
+  "ingest": 17.922,
+  "agent": 34.359
+ },
+ "video": null
+}

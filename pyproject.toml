@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codecast"
+version = "0.1.0"
+description = "Turn a GitHub repo into a grounded, under-60-second developer explainer video"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+dependencies = [
+  "pydantic>=2.7",
+  "pyyaml>=6.0",
+  "jinja2>=3.1",
+  "pygments>=2.18",
+  "pillow>=10.4",
+  "pathspec>=0.12",
+  "playwright>=1.47",
+  "anthropic>=0.40",
+  "openai>=1.50",
+  "httpx>=0.27",
+  "piper-tts>=1.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "respx>=0.21"]
+edge = ["edge-tts>=6.1"]
+
+[project.scripts]
+codecast = "codecast.cli:main_entry"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+codecast = [
+  "defaults.yaml",
+  "agent/prompts/*.md",
+  "render/templates/*.html",
+  "render/static/*",
+  "render/static/fonts/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not live'"
+markers = [
+  "live: needs a real LLM API key and network; excluded by default",
+  "integration: needs ffmpeg, Playwright Chromium and macOS say",
+]
